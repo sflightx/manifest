@@ -17,7 +17,7 @@
         content="Add launch data to the database."
         content="https://i.imgur.com/unbXdTh.png">
 
-    <title>Vehicles | sFlightX</title>
+    <title>Add Manifest | sFlightX</title>
 
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/unbXdTh.png">
     
@@ -49,10 +49,6 @@
                 <input type="text" id="mission-name" placeholder="Enter your Mission Name">
             </form>
             <form>
-                <label for="mission-key">Mission Key  [Replace space with dashes '-' and dashes with underscore '_'.]</label>
-                <input type="text" id="mission-key" placeholder="Enter the mission title in lowercase">
-            </form>
-            <form>
                 <label for="img-url">Thumbnail URL</label>
                 <input type="text" id="img-url" placeholder="Enter a URL">
             </form>
@@ -61,7 +57,7 @@
                 <select id="company-id"></select>
 
             </form>
-            <input type="submit" name="Submit">
+            <input type="submit" name="Submit" id="submit-post">
         </div>
     </main>
     <footer>
@@ -73,11 +69,12 @@
     </footer>
 
     <!-- Firebase SDK -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script type="module" src="../../resources/main/init.js"></script>
-    <script type="module" src="../../resources/manifest/retrieve.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script src="../../resources/main/init.js"></script>
+    <script src="../../resources/manifest/retrieve.js"></script>
+    <script src="../../resources/manifest/submit.js"></script>
 </body>
 </html>
