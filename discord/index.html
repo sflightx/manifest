@@ -38,7 +38,7 @@
 
     <link rel="stylesheet" href="https://sflightx.com/resources/design/material-imports.css" />
     <link rel="stylesheet" href="https://sflightx.com/resources/design/material-primary.css" />
-    <link rel="stylesheet" href="https://sflightx.com/resources/design/material-secondary.css" />
+    <link rel="stylesheet" href="../../resources/design/material-secondary.css" />
     <link rel="stylesheet" href="https://sflightx.com/resources/design/material-scheme.css" />
     <link rel="stylesheet" href="https://help.sflightx.com/main.css" />
     <link rel="stylesheet" href="https://help.sflightx.com/tailwind.css" />
@@ -69,7 +69,15 @@
     <main>
         <div style="height: 10vh;"></div>
         <div class="banner" id="semi">
-            <md-outlined-text-field label="Enter Title" value="Value"></md-outlined-text-field>
+            <div class="banner" id="half">
+                <md-outlined-text-field label="Enter Title" value="Value"></md-outlined-text-field>
+                <md-filled-text-field label="Enter Description" value="Value" style="min-height: 20vh;"></md-filled-text-field>
+                <md-outlined-text-field label="Enter Color Hex" value="Value"></md-outlined-text-field>
+                <md-outlined-text-field label="Enter Image Url" value="Value"></md-outlined-text-field>
+            </div>
+            <div class="container">
+
+            </div>
         </div>
         <footer>
             <div id="horizontal-footer">
@@ -109,6 +117,8 @@
             </div>
         </footer>
     </main>
+
+    <script type="module" src="../../resources/function/manifest/formDiscordEmbed.js"></script>
 
     <script src="https://sflightx.com/resources/function/drawer.js"></script>
     <script src="https://sflightx.com/resources/function/scroll.js"></script>
