@@ -72,15 +72,48 @@
       <div class="banner" id="half" style="grid-gap: 25px 0px;">
         <md-outlined-text-field id="title" label="Enter Title" value="" maxlength="60"
           supporting-text="Provide the header that will appear in the embed."></md-outlined-text-field>
-        <md-filled-text-field id="description" type="textarea" row="3" maxlength="320" label="Enter Description" value=""
-          style="min-height: 20vh;"></md-filled-text-field>
-        <md-outlined-text-field id="color" label="Enter Color Hex" value="" type="text" maxlength="6"
-          pattern="^#?[0-9A-Fa-f]{0,6}$" placeholder="000000" prefix-text="#"></md-outlined-text-field>
+        <md-filled-text-field id="description" type="textarea" row="3" maxlength="320" label="Enter Description"
+          value="" style="min-height: 20vh;">
+        </md-filled-text-field>
         <md-outlined-text-field id="imageUrl" label="Enter Image Url" value=""></md-outlined-text-field>
-        <md-filled-tonal-button id="submit" label="Submit" style="width: 100%;"
-          onclick="sendEmbed()">Submit</md-filled-tonal-button>
-      </div>
+        <div>
+          <h6 class="md-typescale-headline-medium" style="padding: 25px 0px 15px 0px;">Status Check</h6>
+          <md-chip-set id="status-chips">
+            <md-filter-chip label="TBD" selected></md-filter-chip>
+            <md-filter-chip label="TBC"></md-filter-chip>
+            <md-filter-chip label="GO"></md-filter-chip>
+            <md-filter-chip label="HOLD"></md-filter-chip>
+            <md-filter-chip label="SCRUB"></md-filter-chip>
+            <md-filter-chip label="FAILURE"></md-filter-chip>
+          </md-chip-set>
+        </div>
+        <div>
+          <h6 class="md-typescale-headline-medium" style="padding: 25px 0px 0px 0px;">Vehicle Details</h6>
+          <p class="md-typescale-body-small" style="padding: 0;">Select the mission details of your company
+            available.</p>
+        </div>
 
+        <div style="display: flex; justify-content: space-between; gap: 25px;">
+          <div width="50%">
+            <md-filled-tonal-button id="add-vehicle" label="Add Vehicle" style="margin-bottom: 15px; width: 100%;"
+              onclick="addVehicle()">Change Vehicle</md-filled-tonal-button>
+            <md-outlined-text-field id="payload" label="Enter Payload" value="" style="width: 100%;">
+              <md-icon-button toggle slot="trailing-icon" id="add-payload">
+                <md-icon><span class="material-symbols-rounded">add</span></md-icon>
+              </md-icon-button>
+            </md-outlined-text-field>
+          </div>
+          <div class="container" style="width: 50%; height: 100%;">
+            <p class="md-typescale-body-large" style="padding: 0;">Vehicle</p>
+            <p class="md-typescale-body-large">Payload</p>
+            <md-list id="payload-list" style="margin: 0px; width: 100%;"></md-list>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: end;">
+          <md-filled-tonal-button id="submit" label="Submit" style="width: 25%;"
+            onclick="sendEmbed()">Submit</md-filled-tonal-button>
+        </div>
+      </div>
 
       <div class="container" id="embed-preview" style="padding: 8px;">
         <div class="discord-embed">
@@ -180,11 +213,6 @@
         desc.style.display = value ? "block" : "none";
       });
 
-      updateField("color", value => {
-        const color = value.replace("#", "").padStart(6, "0");
-        embed.style.borderLeft = `4px solid #${color}`;
-      });
-
       updateField("imageUrl", value => {
         mainImage.src = value;
         mainImage.style.display = value ? "block" : "none";
@@ -212,24 +240,78 @@
         footer.onclick = () => value && window.open(value, "_blank");
       });
 
+      const color = "#9E9E9E";
+      embed.style.borderLeft = `4px solid ${color}`;
+
       // Static values you may want to support later
       author.textContent = "SFlightX";
       footer.textContent = "SFlightX | Launch Manifest";
 
-      // Fields preview (static for now)
-      const staticFields = [
-        { name: "Vehicle", value: "Falcon 9" },
-        { name: "Payload", value: "Starlink Group 6-39" }
-      ];
+      const addPayloadButton = document.getElementById("add-payload");
 
-      fields.forEach((fieldEl, i) => {
-        const f = staticFields[i];
-        if (f) {
-          fieldEl.querySelector(".field-title").textContent = f.name;
-          fieldEl.querySelector(".field-value").textContent = f.value;
+      const payloads = [];
+
+      addPayloadButton.addEventListener("click", () => {
+        const payloadList = document.getElementById("payload-list");
+        const payloadInput = document.getElementById("payload");
+
+        if (payloadInput.value) {
+          payloads.push(payloadInput.value); // store payload
+
+          const listItem = document.createElement("md-list-item");
+          listItem.style.padding = "0";
+          listItem.style.margin = "0";
+          listItem.style.width = "100%";
+          listItem.textContent = payloadInput.value;
+          payloadList.appendChild(listItem);
+
+          payloadInput.value = "";
         }
+
+        // Update embed preview
+        fields.forEach((fieldEl, i) => {
+          const value = payloads[i];
+          if (value) {
+            fieldEl.querySelector(".field-title").textContent = `Payload ${i + 1}`;
+            fieldEl.querySelector(".field-value").textContent = value;
+          }
+        });
       });
+
     });
+
+    const chipSet = document.getElementById('status-chips');
+    chipSet.addEventListener('click', (event) => {
+      const clickedChip = event.target.closest('md-filter-chip');
+      if (!clickedChip) return;
+
+      // Unselect all chips
+      chipSet.querySelectorAll('md-filter-chip').forEach(chip => {
+        chip.removeAttribute('selected');
+      });
+
+      // Select the clicked one
+      clickedChip.setAttribute('selected', '');
+
+      // Get the label of the clicked chip
+      const value = clickedChip.getAttribute('label');
+
+      // Now call updateField with the label value
+      const statusColors = {
+        "TBD": "#9E9E9E",
+        "TBC": "#607D8B",
+        "GO": "#4CAF50",
+        "HOLD": "#FFC107",
+        "SCRUB": "#FF5722",
+        "FAILURE": "#F44336"
+      };
+
+      const embed = document.querySelector(".discord-embed");
+
+      const color = statusColors[value] || "#000000";
+      embed.style.borderLeft = `4px solid ${color}`;
+    });
+
   </script>
 
 
