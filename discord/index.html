@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="https://sflightx.com/resources/design/material-imports.css" />
   <link rel="stylesheet" href="https://sflightx.com/resources/design/material-primary.css" />
-  <link rel="stylesheet" href="../../resources/design/material-secondary.css" />
+  <link rel="stylesheet" href="https://sflightx.com/resources/design/material-secondary.css" />
   <link rel="stylesheet" href="https://sflightx.com/resources/design/material-scheme.css" />
   <link rel="stylesheet" href="https://help.sflightx.com/main.css" />
   <link rel="stylesheet" href="https://help.sflightx.com/tailwind.css" />
@@ -69,15 +69,20 @@
   <main>
     <div style="height: 10vh;"></div>
     <div class="banner" id="semi">
-      <div class="banner" id="half" style="grid-gap: 25px 0px;">
-        <md-outlined-text-field id="title" label="Enter Title" value="" maxlength="60"
+      <div class="container" id="half"
+        style="display: grid; grid-gap: 8px 0px; border-radius: 24px; padding: 16px 24px;">
+        <div>
+          <h6 class="md-typescale-headline-medium" style="padding: 0px;">Metadata</h6>
+          <p class="md-typescale-body-small" style="padding: 0;">Enter basic info.</p>
+        </div>
+        <md-outlined-text-field style="width: 100%;" id="title" label="Enter Title" value="" maxlength="60"
           supporting-text="Provide the header that will appear in the embed."></md-outlined-text-field>
         <md-filled-text-field id="description" type="textarea" row="3" maxlength="320" label="Enter Description"
-          value="" style="min-height: 20vh;">
+          value="" style="min-height: 20vh; width: 100%;">
         </md-filled-text-field>
         <md-outlined-text-field id="imageUrl" label="Enter Image Url" value=""></md-outlined-text-field>
         <div>
-          <h6 class="md-typescale-headline-medium" style="padding: 25px 0px 15px 0px;">Status Check</h6>
+          <h6 class="md-typescale-headline-medium" style="padding: 24px 0px 16px 0px;">Status Check</h6>
           <md-chip-set id="status-chips">
             <md-filter-chip label="TBD" selected></md-filter-chip>
             <md-filter-chip label="TBC"></md-filter-chip>
@@ -88,24 +93,25 @@
           </md-chip-set>
         </div>
         <div>
-          <h6 class="md-typescale-headline-medium" style="padding: 25px 0px 0px 0px;">Vehicle Details</h6>
+          <h6 class="md-typescale-headline-medium" style="padding: 24px 0px 16px 0px;">Mission Info</h6>
+          <p class="md-typescale-body-small" style="padding: 0;">Enter required fields.</p>
+        </div>
+        <div>
+          <h6 class="md-typescale-headline-medium" style="padding: 24px 0px 16px 0px;">Vehicle Details</h6>
           <p class="md-typescale-body-small" style="padding: 0;">Select the mission details of your company
             available.</p>
         </div>
-
-        <div style="display: flex; justify-content: space-between; gap: 25px;">
-          <div width="50%">
-            <md-filled-tonal-button id="add-vehicle" label="Add Vehicle" style="margin-bottom: 15px; width: 100%;"
-              onclick="addVehicle()">Change Vehicle</md-filled-tonal-button>
-            <md-outlined-text-field id="payload" label="Enter Payload" value="" style="width: 100%;">
+        <div>
+          <div style="display: flex; justify-content: space-between; gap: 25px;">
+            <md-outlined-text-field id="payload" label="Enter Payload" value="" style="width: 75%;">
               <md-icon-button toggle slot="trailing-icon" id="add-payload">
                 <md-icon><span class="material-symbols-rounded">add</span></md-icon>
               </md-icon-button>
             </md-outlined-text-field>
+            <md-filled-tonal-button id="add-vehicle" label="Add Vehicle" style="margin-bottom: 15px; width: 50%;"
+              onclick="addVehicle()">Change Vehicle</md-filled-tonal-button>
           </div>
-          <div class="container" style="width: 50%; height: 100%;">
-            <p class="md-typescale-body-large" style="padding: 0;">Vehicle</p>
-            <p class="md-typescale-body-large">Payload</p>
+          <div class="container" style="width: 100%; height: 100%;">
             <md-list id="payload-list" style="margin: 0px; width: 100%;"></md-list>
           </div>
         </div>
@@ -114,25 +120,33 @@
             onclick="sendEmbed()">Submit</md-filled-tonal-button>
         </div>
       </div>
+      <div>
+        <h6 class="md-typescale-headline-medium" style="padding: 16px 0px 0px 16px;">Preview</h6>
+        <div id="embed-preview" style="padding: 8px;">
+          <div class="discord-embed">
+            <img class="thumbnail" src="" alt="Thumbnail">
+            <div class="author" id="author-info"
+              style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <img id="author-photo" src="" alt="Author Photo"
+                style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+              <span id="author-name" style="font-size: 14px; font-weight: 500;">Author</span>
+            </div>
 
-      <div class="container" id="embed-preview" style="padding: 8px;">
-        <div class="discord-embed">
-          <img class="thumbnail" src="" alt="Thumbnail">
-          <div class="author">SFlightX</div>
-          <div class="title"></div>
-          <div class="description"></div>
-          <div class="fields">
-            <div class="field">
-              <div class="field-title"></div>
-              <div class="field-value"></div>
+            <div class="title"></div>
+            <div class="description"></div>
+            <div class="fields">
+              <div class="field">
+                <div class="field-title"></div>
+                <div class="field-value"></div>
+              </div>
+              <div class="field">
+                <div class="field-title"></div>
+                <div class="field-value"></div>
+              </div>
             </div>
-            <div class="field">
-              <div class="field-title"></div>
-              <div class="field-value"></div>
-            </div>
+            <img class="main-image" src="">
+            <div class="timestamp"></div>
           </div>
-          <img class="main-image" src="">
-          <div class="timestamp"></div>
         </div>
       </div>
       <footer>
@@ -172,7 +186,7 @@
       </footer>
   </main>
 
-  <script type="module" src="../../resources/function/manifest/formDiscordEmbed.js"></script>
+  <script type="module" src="https://sflightx.com/resources/function/manifest/formDiscordEmbed.js"></script>
 
   <script src="https://sflightx.com/resources/function/drawer.js"></script>
   <script src="https://sflightx.com/resources/function/scroll.js"></script>
@@ -186,25 +200,39 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+    const embed = document.querySelector(".discord-embed");
+    const author = embed.querySelector(".author");
+    const authorProfile = document.getElementById("authorIconUrl");
     onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        
+      if (user) {
+        const name = user.displayName || "Anonymous";
+        const photo = user.photoURL || "/assets/default-avatar.png"; // fallback photo
+
+        const authorName = document.getElementById("author-name");
+        const authorPhoto = document.getElementById("author-photo");
+
+        if (authorName) authorName.textContent = name;
+        if (authorPhoto) authorPhoto.src = photo;
       }
 
+    });
+    const footer = embed.querySelector(".timestamp");
+    footer.textContent = "Updated by SFlightX Bot | Today at " + new Date().toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
     });
   </script>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const embed = document.querySelector(".discord-embed");
-
       const title = embed.querySelector(".title");
       const desc = embed.querySelector(".description");
       const mainImage = embed.querySelector(".main-image");
       const thumbnail = embed.querySelector(".thumbnail");
-      const author = embed.querySelector(".author");
       const fields = embed.querySelectorAll(".field");
-      const footer = embed.querySelector(".timestamp");
 
       function updateField(id, callback) {
         const el = document.getElementById(id);
@@ -224,7 +252,7 @@
       });
 
       updateField("description", value => {
-        desc.textContent = value || "Embed Description";
+        desc.innerHTML = formatMultilineText(value);
         desc.style.display = value ? "block" : "none";
       });
 
@@ -255,79 +283,130 @@
         footer.onclick = () => value && window.open(value, "_blank");
       });
 
+      function formatMultilineText(text) {
+        return text.replace(/\n/g, "<br>");
+      }
+
       const color = "#9E9E9E";
       embed.style.borderLeft = `4px solid ${color}`;
 
-      // Static values you may want to support later
-      author.textContent = "SFlightX";
-      footer.textContent = "SFlightX | Launch Manifest";
-
       const addPayloadButton = document.getElementById("add-payload");
-
       const payloads = [];
 
-      addPayloadButton.addEventListener("click", () => {
-        const payloadList = document.getElementById("payload-list");
-        const payloadInput = document.getElementById("payload");
+      // Add Payload Button click event
+addPayloadButton.addEventListener("click", () => {
+  const payloadList = document.getElementById("payload-list");
+  const payloadInput = document.getElementById("payload");
 
-        if (payloadInput.value) {
-          payloads.push(payloadInput.value); // store payload
+  if (payloadInput.value) {
+    const payload = payloadInput.value;
+    payloads.push(payload); // Add new payload to the array
 
-          const listItem = document.createElement("md-list-item");
-          listItem.style.padding = "0";
-          listItem.style.margin = "0";
-          listItem.style.width = "100%";
-          listItem.textContent = payloadInput.value;
-          payloadList.appendChild(listItem);
+    // Create the list item for the payload and append to the list
+    const listItem = createPayloadItem(payload);
+    payloadList.appendChild(listItem);
 
-          payloadInput.value = "";
-        }
+    payloadInput.value = ""; // Clear input after adding the payload
+    updateEmbedPreview(payloads); // Update the embed preview with the new payload
+  }
+});
 
-        // Update embed preview
-        fields.forEach((fieldEl, i) => {
-          const value = payloads[i];
-          if (value) {
-            fieldEl.querySelector(".field-title").textContent = `Payload ${i + 1}`;
-            fieldEl.querySelector(".field-value").textContent = value;
-          }
+// Create a payload list item
+function createPayloadItem(payload) {
+  const listItem = document.createElement("md-list-item");
+  listItem.style.padding = "0";
+  listItem.style.margin = "0";
+  listItem.style.width = "100%";
+  listItem.textContent = payload;
+
+  const deleteIcon = document.createElement("md-icon");
+  deleteIcon.setAttribute("slot", "end");
+  deleteIcon.innerHTML = `<span class="material-symbols-rounded">delete</span>`;
+
+  deleteIcon.addEventListener("click", () => {
+    listItem.remove(); // Removes the list item from the DOM
+    const index = payloads.indexOf(payload);
+    if (index !== -1) {
+      payloads.splice(index, 1); // Remove payload from array
+    }
+    updateEmbedPreview(payloads); // Update the embed preview after deletion
+  });
+
+  listItem.appendChild(deleteIcon); // Append the icon to the list item
+  return listItem;
+}
+
+// Update embed preview with the current payloads
+function updateEmbedPreview(payloads = []) {
+  const embed = document.querySelector(".discord-embed");
+  let fields = embed.querySelectorAll(".field");
+
+  // Ensure there are enough fields for the current number of payloads
+  while (fields.length < payloads.length) {
+    // Add new fields if there aren't enough
+    const newField = document.createElement("div");
+    newField.classList.add("field");
+
+    const fieldTitle = document.createElement("div");
+    fieldTitle.classList.add("field-title");
+
+    const fieldValue = document.createElement("div");
+    fieldValue.classList.add("field-value");
+
+    newField.appendChild(fieldTitle);
+    newField.appendChild(fieldValue);
+    embed.querySelector(".fields").appendChild(newField); // Append to the fields container
+    fields = embed.querySelectorAll(".field"); // Re-fetch updated fields
+  }
+
+  // Loop through each field and update the embed preview
+  fields.forEach((fieldEl, i) => {
+    const value = payloads[i];
+    if (value) {
+      fieldEl.querySelector(".field-title").textContent = `Payload ${i + 1}`;
+      fieldEl.querySelector(".field-value").textContent = value;
+    } else {
+      fieldEl.querySelector(".field-title").textContent = "";
+      fieldEl.querySelector(".field-value").textContent = "";
+    }
+  });
+
+  // Remove any extra fields if there are fewer payloads than fields
+  while (fields.length > payloads.length) {
+    const extraField = fields[fields.length - 1];
+    extraField.remove();
+    fields = embed.querySelectorAll(".field"); // Re-fetch fields
+  }
+}
+
+
+      const chipSet = document.getElementById('status-chips');
+      chipSet.addEventListener('click', (event) => {
+        const clickedChip = event.target.closest('md-filter-chip');
+        if (!clickedChip) return;
+
+        chipSet.querySelectorAll('md-filter-chip').forEach(chip => {
+          chip.removeAttribute('selected');
         });
+
+        clickedChip.setAttribute('selected', '');
+
+        const value = clickedChip.getAttribute('label');
+        const statusColors = {
+          "TBD": "#9E9E9E",
+          "TBC": "#607D8B",
+          "GO": "#4CAF50",
+          "HOLD": "#FFC107",
+          "SCRUB": "#FF5722",
+          "FAILURE": "#F44336"
+        };
+
+        const color = statusColors[value] || "#000000";
+        embed.style.borderLeft = `4px solid ${color}`;
       });
-
     });
-
-    const chipSet = document.getElementById('status-chips');
-    chipSet.addEventListener('click', (event) => {
-      const clickedChip = event.target.closest('md-filter-chip');
-      if (!clickedChip) return;
-
-      // Unselect all chips
-      chipSet.querySelectorAll('md-filter-chip').forEach(chip => {
-        chip.removeAttribute('selected');
-      });
-
-      // Select the clicked one
-      clickedChip.setAttribute('selected', '');
-
-      // Get the label of the clicked chip
-      const value = clickedChip.getAttribute('label');
-
-      // Now call updateField with the label value
-      const statusColors = {
-        "TBD": "#9E9E9E",
-        "TBC": "#607D8B",
-        "GO": "#4CAF50",
-        "HOLD": "#FFC107",
-        "SCRUB": "#FF5722",
-        "FAILURE": "#F44336"
-      };
-
-      const embed = document.querySelector(".discord-embed");
-
-      const color = statusColors[value] || "#000000";
-      embed.style.borderLeft = `4px solid ${color}`;
-    });
-
   </script>
+
 
 
 </body>
