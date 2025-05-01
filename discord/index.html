@@ -178,7 +178,6 @@
   <script src="https://sflightx.com/resources/function/scroll.js"></script>
   <script src="https://sflightx.com/resources/function/theme-mode.js"></script>
   <script src="https://sflightx.com/resources/data/main-navigation.js"></script>
-  <!-- Put this script at the bottom of your page -->
   <script type="module">
     import {
       auth,
@@ -187,10 +186,9 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // 🔒 Check login status and redirect if not authenticated
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        window.open("https://api.sflightx.com/oauth", "_blank");
+        window.open("https://auth.sflightx.com/oauth", "_blank");
       }
 
     });
