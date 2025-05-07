@@ -61,50 +61,37 @@
     </header>
     <main>
         <div id="textarea" style="padding: 2rem; max-width: 600px; margin: auto;">
-            <div class="container" style="display: flex; gap: 8px; width: 100%; margin-bottom: 1rem;">
-                <h1 class="md-typescale-headline-large" id="company" style="width: 100%;">Company: Undefined</h1>
-                <md-filled-button id="log-in" type="submit" style="width: 50%;">
-                    Log In
-                </md-filled-button>
-            </div>
-            <h1 class="md-typescale-headline-large">Add Mission to Manifest</h1>
+            <h1 class="md-typescale-headline-large">Add Launch Site Metadata</h1>
 
             <form id="mission-form">
                 <!-- Mission Name -->
-                <md-outlined-text-field id="mission-name" label="Mission Name" maxlength="60" placeholder="Enter your Mission Name"
+                <md-outlined-text-field id="launch-site-name" label="Launch Site Name" maxlength="60"
+                    placeholder="Enter Launch Site Name"
                     style="width: 100%; margin-bottom: 1rem;"></md-outlined-text-field>
 
-                <md-filled-text-field id="description" type="textarea" row="3" maxlength="320" label="Enter Description"
-                    value="" style="min-height: 20vh; width: 100%; margin-bottom: 1rem;">
+                <md-filled-text-field id="launch-site-description" type="textarea" row="3" maxlength="320"
+                    label="Enter Description" value="" style="min-height: 20vh; width: 100%; margin-bottom: 1rem;">
                 </md-filled-text-field>
 
                 <!-- Thumbnail URL -->
-                <md-outlined-text-field id="img-url" label="Thumbnail URL" placeholder="Enter a URL"
-                    style="width: 100%; margin-bottom: 1rem;"></md-outlined-text-field>
-
-                <h4 class="md-typescale-headline-large">Details</h4>
-                <md-outlined-select id="vehicle-id" label="Launch Vehicle"
+                <md-outlined-text-field id="launch-site-img-url" label="Thumbnail URL" placeholder="Enter a URL"
                     style="width: 100%; margin-bottom: 1rem;">
-                </md-outlined-select>
-                <md-outlined-select id="launch-site-id" label="Launch Site"
-                    style="width: 100%;">
-                </md-outlined-select>
-                <p style="margin-bottom: 1rem;" class="md-typescale-body-small">Currently, Droo Planetary System is only supported.</p>
-                <md-outlined-select id="company-id" label="Launch Vehicle"
-                    style="width: 100%; margin-bottom: 1rem;">
-                </md-outlined-select>
-
-                <md-outlined-text-field id="launch-window" label="Launch Window" placeholder="0" type="number" value="0" no-spinner="true" suffix-text="minutes"
-                    style="width: 75%;">
                 </md-outlined-text-field>
-                <p style="margin-bottom: 1rem;" class="md-typescale-body-small">0 minutes for an instantaneous launch window.</p>
 
-                <md-outlined-text-field id="payload" label="Enter Payload" value="" style="width: 50%; margin-bottom: 1rem;">
-                    <md-icon-button toggle slot="trailing-icon" id="add-payload">
-                        <md-icon><span class="material-symbols-rounded">add</span></md-icon>
-                    </md-icon-button>
-                </md-outlined-text-field>
-                <p class="md-typescale-body-small">Note: Make sure you have submitted a request to add your company to your account. You must be logged in to upload to manifest. <br> <br> Upon request, teams will review for spam prevention, and it will take less than 24 hours.</p>
+                <h4 class="md-typescale-headline-large">Coordinates</h4>
+
+                <div style="display: flex; gap: 8px; width: 75%;">
+                    <md-outlined-text-field id="lat" label="Latitude" placeholder="Enter Latitude"
+                        style="width: 100%; margin-bottom: 1rem;"></md-outlined-text-field>
+                    <div id="company-details"></div>
+                    <md-outlined-text-field id="long" label="Longitude" placeholder="Enter Longitude"
+                        style="width: 100%; margin-bottom: 1rem;"></md-outlined-text-field>
+                    <div id="company-details"></div>
+                    <md-outlined-text-field id="agl" label="Altitude" placeholder="Enter Altitude"
+                        style="width: 100%; margin-bottom: 1rem;"></md-outlined-text-field>
+                    <div id="company-details"></div>
+                </div>
+                <p class="md-typescale-body-large">This location is only available for Droo.</p>
 
                 <!-- Submit Button -->
                 <md-filled-button id="submit-post" type="submit" style="margin-top: 1rem;">
@@ -152,8 +139,7 @@
     </main>
     <script type="module" src="https://sflightx.com/resources/serviceAuth/initializeFirebase.js"></script>
 
-    <script type="module" src="../../../resources/function/manifest/retrieve.js"></script>
-    <script type="module" src="../../../resources/function/manifest/submit.js"></script>
+    <script type="module" src="../../../resources/function/manifest/submit-ls.js"></script>
 </body>
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
