@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="version" content="1.4">
+    <meta name="author" content="SFlightX">
+    <meta name="version_date" content="04-23-2025">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="description" content="Create or modify launch manifest in JNO through SFlightX.">
+    <meta name="keywords" content="SFlightX, App, Tutorial, Help, Spaceflight Simulator, Juno: New Origins">
+    <meta property="og:image" content="https://sflightx.com/resources/v4/database/logo/logo.png" />
+    <meta property="og:url" content="app.sflightx.com/bp" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SFlightXJNO" />
+    <meta name="twitter:title" content="sFlightX" />
+    <meta name="twitter:description" content="Create or modify launch manifest in JNO through SFlightX." />
+    <meta name="twitter:image" content="https://sflightx.com/resources/v4/database/logo/logo.png" />
+    <title>Manifest - SFlightX</title>
+    <link rel="icon" type="image/png" href="https://sflightx.com/resources/v4/database/logo/logo.png">
+
+    <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+  </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <style>
+        #company-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            #company-header {
+                flex-direction: row;
+            }
+        }
+        [desktop-gap] {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://sflightx.com/resources/v4/element/material-dependency.css" />
+</head>
+
+<body>
+    <div id="side-sheet">
+        <div id="side-sheet-header">
+            <h3 class="md-typescale-headline-small">SFlightX</h3>
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()">close</span>
+        </div>
+        <nav id="navItems"></nav>
+    </div>
+    <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleSideSheet()"></div>
+    <header>
+        <div class="logo">
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()" id="menu">menu</span>
+            <a href="https://sflightx.com">
+                <img id="logo" src="https://sflightx.com/resources/v4/database/logo/logo.png" alt="sFlightX Logo" />
+            </a>
+        </div>
+        <div id="action-bar">
+            <label><span class="material-symbols-rounded">dark_mode</span><md-switch
+                    id="themeToggle"></md-switch></label>
+            <div id="profile"></div>
+        </div>
+    </header>
+    <main>
+        <div desktop-gap>
+            <div id="company-header">
+                <div>
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                        <h4 class="md-typescale-headline-large" id="company"></h4>
+                    </div>
+                </div>
+                <md-filled-button href="https://manifest.sflightx.com/add" target="_blank">
+                    <span class="material-symbols-rounded">add</span>Add New Launch
+                </md-filled-button>
+            </div>
+            <div>
+                <h6 class="md-typescale-headline-small">Pending Requests</h6>
+            </div>
+        </div>
+        <sflightx-footer></sflightx-footer>
+    </main>
+    <script type="module" src="https://sflightx.com/resources/v4/function/serviceAuth/initializeFirebase.js"></script>
+    <script src="https://sflightx.com/resources/v4/dependency.js"></script>
+    <!--script src="https://sflightx.com/resources/v4/data/drawer/primary.js"></script-->
+    <script type="module" src="https://sflightx.com/resources/v4/function/profile.js"></script>
+    <script type="module">
+        import { db, auth } from 'https://sflightx.com/resources/v4/function/serviceAuth/initializeFirebase.js';
+        import { ref, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        const user = await getCurrentUserProfile();
+
+        async function getCurrentUserProfile() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (user) {
+                        try {
+                            resolve(user);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    } else {
+                        resolve(null);
+                    }
+                }, reject);
+            });
+        }
+
+        async function getCompanyIdAndData(user) {
+            if (!user || !user.uid) return null;
+            try {
+                // Get companyId from user data
+                const userRef = ref(db, `userdata/${user.uid}/companyId`);
+                const snapshot = await get(userRef);
+                const companyId = snapshot.val();
+                if (!companyId) return null;
+
+                // Get company data from static/company/<companyId>
+                const companyRef = ref(db, `static/company/${companyId}`);
+                const companySnapshot = await get(companyRef);
+                const companyData = companySnapshot.val();
+
+                return { companyId, companyData };
+            } catch (error) {
+                console.error('Error fetching company data:', error);
+                return null;
+            }
+        }
+
+        // Example usage:
+        if (user && user.uid) {
+            const result = await getCompanyIdAndData(user);
+            if (result && result.companyData) {
+                // Do something with result.companyId and result.companyData
+                console.log(`Company: ${result.companyData.name || result.companyId}`);
+                document.getElementById('company').textContent = `Welcome, ${result.companyData.name || result.companyId}`;
+            }
+        }
+    </script>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+</body>
+
+</html>

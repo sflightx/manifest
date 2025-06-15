@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="version" content="0.3">
+    <meta name="author" content="SFlightX">
+    <meta name="version_date" content="04-24-2025">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="description" content="Our next and recent launches.">
+    <meta name="keywords" content="SFlightX, App, Tutorial, Help, Spaceflight Simulator, Juno: New Origins">
+    <meta property="og:image" content="https://sflightx.com/resources/v4/database/logo/logo.png" />
+    <meta property="og:url" content="sflightx.com" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SFlightXJNO" />
+    <meta name="twitter:title" content="sFlightX" />
+    <meta name="twitter:description" content="Our next and recent launches." />
+    <meta name="twitter:image" content="https://sflightx.com/resources/v4/database/logo/logo.png" />
+    <title>SFlightX - Launches</title>
+    <link rel="icon" type="image/png" href="https://sflightx.com/resources/v4/database/logo/logo.png">
+
+    <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <style>
+        #action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 16px;
+        }
+
+        .profile-img {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        #profile .material-symbols-rounded {
+            font-size: 2rem;
+        }
+
+        #profile-items>* {
+            width: 100%;
+        }
+
+        #mission-form {
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        md-outlined-text-field,
+        md-filled-text-field,
+        md-outlined-select {
+            width: 50%;
+        }
+
+        @media (max-width: 768px) {
+
+            md-outlined-text-field,
+            md-filled-text-field,
+            md-outlined-select {
+                width: 100%;
+            }
+
+        }
+
+       #submit-post {
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            z-index: 1001;
+        }
+    </style>
+    <link rel="stylesheet" href="https://sflightx.com/resources/v4/element/material-dependency.css" />
+</head>
+
+<body>
+    <div id="side-sheet">
+        <div id="side-sheet-header">
+            <h3 class="md-typescale-headline-small">SFlightX</h3>
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()">close</span>
+        </div>
+        <nav id="navItems"></nav>
+    </div>
+    <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleSideSheet()"></div>
+    <header>
+        <div class="logo">
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()" id="menu">menu</span>
+            <a href="https://sflightx.com">
+                <img id="logo" src="https://sflightx.com/resources/v4/database/logo/logo.png" alt="sFlightX Logo" />
+            </a>
+        </div>
+        <div id="action-bar">
+            <label><span class="material-symbols-rounded">dark_mode</span><md-switch
+                    id="themeToggle"></md-switch></label>
+            <div id="profile"></div>
+        </div>
+    </header>
+    <main>
+        <div>
+            <div desktop-gap>
+                <h1 class="md-typescale-headline-large" indent="bottom">Add Mission to Manifest</h1>
+                <div style="display: flex; gap: 8px;">
+                    <span class="material-symbols-rounded">info</span>
+                    <p class="md-typescale-body-large" style="color: var(--md-sys-color-on-surface-variant)">Upon
+                        submission, you <a href="https://help.sflightx.com/sflightx-bot/notifying-servers">authorize</a>
+                        that we will notify discord servers that add our bot. <a
+                            href="https://help.sflightx.com/sflightx-bot/installation">Learn more</a> how to set up our
+                        bot to notify your server with JNO launches.</p>
+                </div>
+                <div indent="vertical">
+                    <div indent="bottom">
+                        <h1 class="md-typescale-headline-small" id="company">Company: Undefined</h1>
+                        <p class="md-typescale-body-large" style="color: var(--md-sys-color-on-surface-variant);">
+                            Company not appearing? <a href="mailto:sflightx@gmail.com"
+                                class="md-typescale-body-large">Contact Us</a>.</p>
+                    </div>
+                </div>
+
+
+                <form id="mission-form" indent="vertical">
+                    <!-- Mission Name -->
+                    <md-outlined-text-field id="text_field_name" label="Mission Name"
+                        maxlength="60" placeholder="Enter your Mission Name">
+                    </md-outlined-text-field>
+
+                    <md-filled-text-field id="description" type="textarea" row="3" maxlength="320"
+                        label="Enter Description" value="">
+                    </md-filled-text-field>
+
+                    <!-- Thumbnail URL -->
+                    <md-outlined-text-field id="img-url" label="Thumbnail URL"
+                        placeholder="Enter a URL"></md-outlined-text-field>
+                    <h4 class="md-typescale-headline-large">Details</h4>
+                    <md-outlined-select id="vehicle-id" label="Launch Vehicle">
+                    </md-outlined-select>
+                    <md-outlined-select id="launch-site-id" label="Launch Site">
+                    </md-outlined-select>
+                    <p style="margin-bottom: 1rem;" class="md-typescale-body-small">Currently, Droo Planetary System is
+                        only
+                        supported.</p>
+                    <md-outlined-select id="company-id" label="Launch Vehicle">
+                    </md-outlined-select>
+
+                    <md-outlined-text-field id="launch-window" label="Launch Window" placeholder="0" type="number"
+                        value="0" no-spinner="true" suffix-text="minutes">
+                    </md-outlined-text-field>
+                    <p style="margin-bottom: 1rem;" class="md-typescale-body-small">0 minutes for an instantaneous
+                        launch
+                        window. It is the default value.</p>
+
+                    <md-outlined-text-field id="payload" label="Enter Payload" value="">
+                        <md-icon-button toggle slot="trailing-icon" id="add-payload">
+                            <md-icon><span class="material-symbols-rounded">add</span></md-icon>
+                        </md-icon-button>
+                    </md-outlined-text-field>
+                    <p class="md-typescale-body-small">Note: Make sure you have submitted a request to add your company
+                        to
+                        your account. You must be logged in to upload to manifest. <br> <br> Upon request, teams will
+                        review
+                        for spam prevention, in case duplication and it will take less than 24 hours.</p>
+                </form>
+            </div>
+        </div>
+        <md-filled-button id="submit-post" type="submit">Submit</md-filled-button>
+        <sflightx-footer></sflightx-footer>
+    </main>
+    <script type="module" src="https://sflightx.com/resources/v4/function/serviceAuth/initializeFirebase.js"></script>
+    <script src="https://sflightx.com/resources/v4/dependency.js"></script>
+    <script src="https://sflightx.com/resources/v4/data/drawer/primary.js"></script>
+    <script type="module" src="https://sflightx.com/resources/v4/function/profile.js"></script>
+    <script type="module" src="../../../resources/v4/function/manifest/retrieve.js"></script>
+    <script type="module" src="../../../resources/v4/function/manifest/submit.js"></script>
+    <script type="module">
+        import { writeNewPost } from '../../../resources/v4/function/manifest/submit.js';
+
+        // Example: Call submitPost with parameters when the submit button is clicked
+        document.getElementById('submit-post').addEventListener('click', async () => {
+            const name = document.getElementById('text_field_name').value;
+            const description = document.getElementById('description').value;
+            const imgUrl = document.getElementById('img-url').value;
+            const vehicleId = document.getElementById('vehicle-id').value;
+            const launchSiteId = document.getElementById('launch-site-id').value;
+            const companyId = document.getElementById('company-id').value;
+            const launchWindow = document.getElementById('launch-window').value;
+            const payload = document.getElementById('payload').value;
+
+            // Call submitPost with the collected parameters
+            await writeNewPost({
+                name,
+                description,
+                imgUrl,
+                vehicleId,
+                launchSiteId,
+                companyId,
+                launchWindow,
+                payload
+            });
+        });
+    </script>
+    <script type="module">
+        import { db, auth } from 'https://sflightx.com/resources/v4/function/serviceAuth/initializeFirebase.js';
+        import { ref, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        const user = await getCurrentUserProfile();
+
+        async function getCurrentUserProfile() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (user) {
+                        try {
+                            resolve(user);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    } else {
+                        resolve(null);
+                    }
+                }, reject);
+            });
+        }
+
+        async function getCompanyIdAndData(user) {
+            if (!user || !user.uid) return null;
+            try {
+                // Get companyId from user data
+                const userRef = ref(db, `userdata/${user.uid}/companyId`);
+                const snapshot = await get(userRef);
+                const companyId = snapshot.val();
+                if (!companyId) return null;
+
+                // Get company data from static/company/<companyId>
+                const companyRef = ref(db, `static/company/${companyId}`);
+                const companySnapshot = await get(companyRef);
+                const companyData = companySnapshot.val();
+
+                return { companyId, companyData };
+            } catch (error) {
+                console.error('Error fetching company data:', error);
+                return null;
+            }
+        }
+
+        // Example usage:
+        if (user && user.uid) {
+            const result = await getCompanyIdAndData(user);
+            if (result && result.companyData) {
+                // Do something with result.companyId and result.companyData
+                console.log(`Company: ${result.companyData.name || result.companyId}`);
+                document.getElementById('company').textContent = `Company: ${result.companyData.name || result.companyId}`;
+            }
+        }
+    </script>
+</body>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
+
+</html>

@@ -32,45 +32,50 @@
     import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
     document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-
-  <link rel="stylesheet" href="https://sflightx.com/resources/design/material-imports.css" />
-  <link rel="stylesheet" href="https://sflightx.com/resources/design/material-primary.css" />
-  <link rel="stylesheet" href="https://sflightx.com/resources/design/material-secondary.css" />
-  <link rel="stylesheet" href="https://sflightx.com/resources/design/material-scheme.css" />
-  <link rel="stylesheet" href="https://help.sflightx.com/main.css" />
-  <link rel="stylesheet" href="https://help.sflightx.com/tailwind.css" />
+  <style>
+    #form {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 100%;
+      gap: 16px;
+    }
+    [important] {
+      flex: 2 !important;
+    }
+    [child] {
+      flex: 1;
+    }
+  </style>
+  <link rel="stylesheet" href="https://sflightx.com/resources/v4/element/material-dependency.css" />
 </head>
 
 <body>
   <div id="side-sheet">
-    <div id="side-sheet-header">
-      <h3 class="md-typescale-headline-small">SFlightX</h3>
-      <span class="material-symbols-rounded" onclick="toggleSideSheet()">close</span>
+        <div id="side-sheet-header">
+            <h3 class="md-typescale-headline-small">SFlightX</h3>
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()">close</span>
+        </div>
+        <nav id="navItems"></nav>
     </div>
-    <nav id="navItems"></nav>
-  </div>
-  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleSideSheet()"></div>
-  <header>
-    <div class="logo">
-      <span class="material-symbols-rounded" onclick="toggleSideSheet()" id="menu">menu</span>
-      <a href="https://sflightx.com">
-        <img id="logo" src="https://sflightx.com/resources/static/logo.png" alt="sFlightX Logo" />
-      </a>
-      <p class="md-typescale-headline-small" id="app-bar-title">SFlightX</p>
-    </div>
-    <div class="action">
-      <label><span class="material-symbols-rounded">dark_mode</span><md-switch id="themeToggle"></md-switch></label>
-      <!--span id="account" class="material-symbols-rounded">account_circle</span-->
-    </div>
-  </header>
+    <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleSideSheet()"></div>
+    <header>
+        <div class="logo">
+            <span class="material-symbols-rounded" onclick="toggleSideSheet()" id="menu">menu</span>
+            <a href="https://sflightx.com">
+                <img src="https://sflightx.com/resources/v4/database/logo/logo.png" alt="sFlightX Logo" />
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <!--md-outlined-button href="https://auth.sflightx.com" style="margin: 8px 0px;"
+                class="md-typescale-title-small">Log In</md-outlined-button-->
+            <label><span class="material-symbols-rounded">dark_mode</span><md-switch
+                    id="themeToggle"></md-switch></label>
+        </div>
+    </header>
   <main>
-    <div style="height: 10vh;"></div>
-    <div class="banner" id="semi">
-      <div class="container" id="half"
-        style="display: grid; grid-gap: 8px 0px; border-radius: 24px; padding: 16px 24px;">
+    <div id="form">
+      <div class="container" child indent="all">
         <div>
           <h6 class="md-typescale-headline-medium" style="padding: 0px;">Metadata</h6>
           <p class="md-typescale-body-small" style="padding: 0;">Enter basic info.</p>
@@ -120,7 +125,8 @@
             onclick="sendEmbed()">Submit</md-filled-tonal-button>
         </div>
       </div>
-      <div>
+
+      <div important>
         <h6 class="md-typescale-headline-medium" style="padding: 16px 0px 0px 16px;">Preview</h6>
         <div id="embed-preview" style="padding: 8px;">
           <div class="discord-embed">
@@ -144,54 +150,19 @@
                 <div class="field-value"></div>
               </div>
             </div>
-            <img class="main-image" src="">
+            <img class="main-image" src="" alt="">
             <div class="timestamp"></div>
           </div>
         </div>
       </div>
-      <footer>
-        <div id="horizontal-footer">
-
-          <div id="footer-logo">
-            <a href="https://sflightx.com"><img id="footer-logo" src="https://sflightx.com/resources/static/logo.png"
-                alt="sFlightX Logo" /></a>
-            <p class="md-typescale-body-medium">SFlightX is not affiliated with Spaceflight Simulator or Juno:
-              New
-              Origins. This website is not affiliated with Space Exploration Technologies (SpaceX).</p>
-            <p class="md-typescale-body-medium">© 2021-2025 SFlightX. All rights reserved.</p>
-          </div>
-          <div id="legal-link">
-            <div id="icon-link">
-              <a href="https://x.com/SFlightXJNO"><img
-                  src="https://img.icons8.com/?size=100&id=Q33YQBzI2lZs&format=png&color=FFFFFF"
-                  class="footer-link-img"></a>
-              <a href="https://youtube.com/@sflightx"><img
-                  src="https://img.icons8.com/?size=100&id=85162&format=png&color=FFFFFF" class="footer-link-img"></a>
-              <a href="https://facebook.com/sflightx"><img
-                  src="https://img.icons8.com/?size=100&id=85126&format=png&color=FFFFFF" class="footer-link-img"></a>
-              <a href="https://bsky.app/profile/sflightx.com"><img
-                  src="https://img.icons8.com/?size=100&id=MGqlXOe8ksH0&format=png&color=FFFFFF"
-                  class="footer-link-img"></a>
-              <a href="https://simplerockets.com/u/sflightx"><img
-                  src="https://img.icons8.com/?size=100&id=COgXDnufRVRP&format=png&color=FFFFFF"
-                  class="footer-link-img"></a>
-            </div>
-            <div class="text-link">
-              <a href="https://sflightx.com/legal/terms" target="_self">Terms of Service</a>
-              <a href="https://sflightx.com/legal/privacy" target="_self">Privacy Policy</a>
-            </div>
-          </div>
-
-        </div>
-      </footer>
+    </div>
+    <sflightx-footer></sflightx-footer>
   </main>
 
-  <script type="module" src="../../resources/function/manifest/formDiscordEmbed.js"></script>
+  <script type="module" src="../../resources/v4/function/manifest/formDiscordEmbed.js"></script>
 
-  <script src="https://sflightx.com/resources/function/drawer.js"></script>
-  <script src="https://sflightx.com/resources/function/scroll.js"></script>
-  <script src="https://sflightx.com/resources/function/theme-mode.js"></script>
-  <script src="https://sflightx.com/resources/data/main-navigation.js"></script>
+  <script src="https://sflightx.com/resources/v4/dependency.js"></script>
+    <!--script src="https://sflightx.com/resources/v4/data/drawer/primary.js"></script-->
   <script type="module">
     import {
       auth,
@@ -294,90 +265,90 @@
       const payloads = [];
 
       // Add Payload Button click event
-addPayloadButton.addEventListener("click", () => {
-  const payloadList = document.getElementById("payload-list");
-  const payloadInput = document.getElementById("payload");
+      addPayloadButton.addEventListener("click", () => {
+        const payloadList = document.getElementById("payload-list");
+        const payloadInput = document.getElementById("payload");
 
-  if (payloadInput.value) {
-    const payload = payloadInput.value;
-    payloads.push(payload); // Add new payload to the array
+        if (payloadInput.value) {
+          const payload = payloadInput.value;
+          payloads.push(payload); // Add new payload to the array
 
-    // Create the list item for the payload and append to the list
-    const listItem = createPayloadItem(payload);
-    payloadList.appendChild(listItem);
+          // Create the list item for the payload and append to the list
+          const listItem = createPayloadItem(payload);
+          payloadList.appendChild(listItem);
 
-    payloadInput.value = ""; // Clear input after adding the payload
-    updateEmbedPreview(payloads); // Update the embed preview with the new payload
-  }
-});
+          payloadInput.value = ""; // Clear input after adding the payload
+          updateEmbedPreview(payloads); // Update the embed preview with the new payload
+        }
+      });
 
-// Create a payload list item
-function createPayloadItem(payload) {
-  const listItem = document.createElement("md-list-item");
-  listItem.style.padding = "0";
-  listItem.style.margin = "0";
-  listItem.style.width = "100%";
-  listItem.textContent = payload;
+      // Create a payload list item
+      function createPayloadItem(payload) {
+        const listItem = document.createElement("md-list-item");
+        listItem.style.padding = "0";
+        listItem.style.margin = "0";
+        listItem.style.width = "100%";
+        listItem.textContent = payload;
 
-  const deleteIcon = document.createElement("md-icon");
-  deleteIcon.setAttribute("slot", "end");
-  deleteIcon.innerHTML = `<span class="material-symbols-rounded">delete</span>`;
+        const deleteIcon = document.createElement("md-icon");
+        deleteIcon.setAttribute("slot", "end");
+        deleteIcon.innerHTML = `<span class="material-symbols-rounded">delete</span>`;
 
-  deleteIcon.addEventListener("click", () => {
-    listItem.remove(); // Removes the list item from the DOM
-    const index = payloads.indexOf(payload);
-    if (index !== -1) {
-      payloads.splice(index, 1); // Remove payload from array
-    }
-    updateEmbedPreview(payloads); // Update the embed preview after deletion
-  });
+        deleteIcon.addEventListener("click", () => {
+          listItem.remove(); // Removes the list item from the DOM
+          const index = payloads.indexOf(payload);
+          if (index !== -1) {
+            payloads.splice(index, 1); // Remove payload from array
+          }
+          updateEmbedPreview(payloads); // Update the embed preview after deletion
+        });
 
-  listItem.appendChild(deleteIcon); // Append the icon to the list item
-  return listItem;
-}
+        listItem.appendChild(deleteIcon); // Append the icon to the list item
+        return listItem;
+      }
 
-// Update embed preview with the current payloads
-function updateEmbedPreview(payloads = []) {
-  const embed = document.querySelector(".discord-embed");
-  let fields = embed.querySelectorAll(".field");
+      // Update embed preview with the current payloads
+      function updateEmbedPreview(payloads = []) {
+        const embed = document.querySelector(".discord-embed");
+        let fields = embed.querySelectorAll(".field");
 
-  // Ensure there are enough fields for the current number of payloads
-  while (fields.length < payloads.length) {
-    // Add new fields if there aren't enough
-    const newField = document.createElement("div");
-    newField.classList.add("field");
+        // Ensure there are enough fields for the current number of payloads
+        while (fields.length < payloads.length) {
+          // Add new fields if there aren't enough
+          const newField = document.createElement("div");
+          newField.classList.add("field");
 
-    const fieldTitle = document.createElement("div");
-    fieldTitle.classList.add("field-title");
+          const fieldTitle = document.createElement("div");
+          fieldTitle.classList.add("field-title");
 
-    const fieldValue = document.createElement("div");
-    fieldValue.classList.add("field-value");
+          const fieldValue = document.createElement("div");
+          fieldValue.classList.add("field-value");
 
-    newField.appendChild(fieldTitle);
-    newField.appendChild(fieldValue);
-    embed.querySelector(".fields").appendChild(newField); // Append to the fields container
-    fields = embed.querySelectorAll(".field"); // Re-fetch updated fields
-  }
+          newField.appendChild(fieldTitle);
+          newField.appendChild(fieldValue);
+          embed.querySelector(".fields").appendChild(newField); // Append to the fields container
+          fields = embed.querySelectorAll(".field"); // Re-fetch updated fields
+        }
 
-  // Loop through each field and update the embed preview
-  fields.forEach((fieldEl, i) => {
-    const value = payloads[i];
-    if (value) {
-      fieldEl.querySelector(".field-title").textContent = `Payload ${i + 1}`;
-      fieldEl.querySelector(".field-value").textContent = value;
-    } else {
-      fieldEl.querySelector(".field-title").textContent = "";
-      fieldEl.querySelector(".field-value").textContent = "";
-    }
-  });
+        // Loop through each field and update the embed preview
+        fields.forEach((fieldEl, i) => {
+          const value = payloads[i];
+          if (value) {
+            fieldEl.querySelector(".field-title").textContent = `Payload ${i + 1}`;
+            fieldEl.querySelector(".field-value").textContent = value;
+          } else {
+            fieldEl.querySelector(".field-title").textContent = "";
+            fieldEl.querySelector(".field-value").textContent = "";
+          }
+        });
 
-  // Remove any extra fields if there are fewer payloads than fields
-  while (fields.length > payloads.length) {
-    const extraField = fields[fields.length - 1];
-    extraField.remove();
-    fields = embed.querySelectorAll(".field"); // Re-fetch fields
-  }
-}
+        // Remove any extra fields if there are fewer payloads than fields
+        while (fields.length > payloads.length) {
+          const extraField = fields[fields.length - 1];
+          extraField.remove();
+          fields = embed.querySelectorAll(".field"); // Re-fetch fields
+        }
+      }
 
 
       const chipSet = document.getElementById('status-chips');
