@@ -78,7 +78,7 @@
 
         }
 
-       #submit-post {
+        #submit-post {
             position: fixed;
             right: 32px;
             bottom: 32px;
@@ -133,8 +133,8 @@
 
                 <form id="mission-form" indent="vertical">
                     <!-- Mission Name -->
-                    <md-outlined-text-field id="text_field_name" label="Mission Name"
-                        maxlength="60" placeholder="Enter your Mission Name">
+                    <md-outlined-text-field id="text_field_name" label="Mission Name" maxlength="60"
+                        placeholder="Enter your Mission Name">
                     </md-outlined-text-field>
 
                     <md-filled-text-field id="description" type="textarea" row="3" maxlength="320"
@@ -152,8 +152,6 @@
                     <p style="margin-bottom: 1rem;" class="md-typescale-body-small">Currently, Droo Planetary System is
                         only
                         supported.</p>
-                    <md-outlined-select id="company-id" label="Launch Vehicle">
-                    </md-outlined-select>
 
                     <md-outlined-text-field id="launch-window" label="Launch Window" placeholder="0" type="number"
                         value="0" no-spinner="true" suffix-text="minutes">
@@ -184,35 +182,10 @@
     <script type="module" src="../../../resources/v4/function/manifest/retrieve.js"></script>
     <script type="module" src="../../../resources/v4/function/manifest/submit.js"></script>
     <script type="module">
-        import { writeNewPost } from '../../../resources/v4/function/manifest/submit.js';
-
-        // Example: Call submitPost with parameters when the submit button is clicked
-        document.getElementById('submit-post').addEventListener('click', async () => {
-            const name = document.getElementById('text_field_name').value;
-            const description = document.getElementById('description').value;
-            const imgUrl = document.getElementById('img-url').value;
-            const vehicleId = document.getElementById('vehicle-id').value;
-            const launchSiteId = document.getElementById('launch-site-id').value;
-            const companyId = document.getElementById('company-id').value;
-            const launchWindow = document.getElementById('launch-window').value;
-            const payload = document.getElementById('payload').value;
-
-            // Call submitPost with the collected parameters
-            await writeNewPost({
-                name,
-                description,
-                imgUrl,
-                vehicleId,
-                launchSiteId,
-                companyId,
-                launchWindow,
-                payload
-            });
-        });
-    </script>
-    <script type="module">
         import { db, auth } from 'https://sflightx.com/resources/v4/function/serviceAuth/initializeFirebase.js';
         import { ref, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import { writeNewPost } from '/../../../resources/v4/function/manifest/submit.js';
+
         const user = await getCurrentUserProfile();
 
         async function getCurrentUserProfile() {
@@ -253,7 +226,6 @@
             }
         }
 
-        // Example usage:
         if (user && user.uid) {
             const result = await getCompanyIdAndData(user);
             if (result && result.companyData) {
@@ -262,6 +234,40 @@
                 document.getElementById('company').textContent = `Company: ${result.companyData.name || result.companyId}`;
             }
         }
+
+        // Example: Call submitPost with parameters when the submit button is clicked
+        document.getElementById('submit-post').addEventListener('click', async () => {
+            const name = document.getElementById('text_field_name').value;
+            const description = document.getElementById('description').value;
+            const imgUrl = document.getElementById('img-url').value;
+            const vehicleId = document.getElementById('vehicle-id').value;
+            const launchSiteId = document.getElementById('launch-site-id').value;
+            const launchWindow = document.getElementById('launch-window').value;
+            const payload = document.getElementById('payload').value;
+            const result = await getCompanyIdAndData(user);
+            const companyId = result ? result.companyId : null;
+
+            // Call submitPost with the collected parameters
+
+            console.log(companyId);
+            await writeNewPost(
+                name,
+                description,
+                null, // key
+                launchSiteId,
+                null, // link
+                null, // start
+                null, // end
+                payload,
+                imgUrl,
+                companyId,
+                null, // statusId
+                vehicleId
+            );
+
+
+
+        });
     </script>
 </body>
 <!-- Firebase SDK -->

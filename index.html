@@ -90,6 +90,9 @@
             <div>
                 <h6 class="md-typescale-headline-small">Pending Requests</h6>
             </div>
+            <div>
+                
+            </div>
         </div>
         <sflightx-footer></sflightx-footer>
     </main>
@@ -145,7 +148,7 @@
             if (result && result.companyData) {
                 // Do something with result.companyId and result.companyData
                 console.log(`Company: ${result.companyData.name || result.companyId}`);
-                document.getElementById('company').textContent = `Welcome, ${result.companyData.name || result.companyId}`;
+                document.getElementById('company').textContent = `Welcome, ${user.displayName || user.uid}`;
             }
         }
     </script>
